@@ -19,6 +19,8 @@ import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
+import React, { useState,useEffect } from "react";
+
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
@@ -35,7 +37,28 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 
-function Dashboard() {
+// Supabase
+import { createClient } from "@supabase/supabase-js";
+const supabase = createClient("http://zeroth.trueddns.com:30264",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICAgInJvbGUiOiAiYW5vbiIsCiAgICAiaXNzIjogInN1cGFiYXNlIiwKICAgICJpYXQiOiAxNjc4MDM1NjAwLAogICAgImV4cCI6IDE4MzU4ODg0MDAKfQ.q2awueyU-6gYo6kMXx0VNXFDf-48uZ95SZ_YyWO_h5c");
+
+  function Dashboard() {
+
+    const [costamount,setCostamount] = useState('0');
+    useEffect(() => {
+      console.log('useEffect work'); 
+      const transactions = supabase.channel('custom-all-channel')
+      .on( 
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'transactions' },
+        (payload) => {
+          console.log('Change received!', payload.new.cost_amounty);
+          setCostamount(String(payload.new.cost_amount));
+        }
+      )
+      .subscribe()
+    }, []);
+
   const { sales, tasks } = reportsLineChartData;
 
   return (
@@ -77,8 +100,8 @@ function Dashboard() {
               <ComplexStatisticsCard
                 color="success"
                 icon="store"
-                title="Revenue"
-                count="34k"
+                title="Cost Amount"
+                count={costamount}
                 percentage={{
                   color: "success",
                   amount: "+1%",
