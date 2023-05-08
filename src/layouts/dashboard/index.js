@@ -37,17 +37,13 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 // Supabase
-import { createClient } from "@supabase/supabase-js";
+import { wsZeroth } from "api/api_supabase";
 
-const supabase = createClient(
-  "http://zeroth.trueddns.com:30264",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICAgInJvbGUiOiAiYW5vbiIsCiAgICAiaXNzIjogInN1cGFiYXNlIiwKICAgICJpYXQiOiAxNjc4MDM1NjAwLAogICAgImV4cCI6IDE4MzU4ODg0MDAKfQ.q2awueyU-6gYo6kMXx0VNXFDf-48uZ95SZ_YyWO_h5c"
-);
 function Dashboard() {
   const [costamount, setCostamount] = useState("0");
   useEffect(() => {
     console.log("useEffect work");
-    supabase
+    wsZeroth
       .channel("custom-all-channel")
       .on(
         "postgres_changes",

@@ -1,23 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-/**
-  This file is used for controlling the global states of the components,
-  you can customize the states for the different components here.
-*/
-
 import { createContext, useContext, useReducer, useMemo } from "react";
 
 // prop-types is a library for typechecking of props
@@ -120,6 +100,12 @@ const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value })
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 
+const setCurrentUser = (dispatch, { username, password, email }) =>
+  dispatch({
+    type: "SET_CURRENT_USER",
+    payload: { username, password, email },
+  });
+
 export {
   MaterialUIControllerProvider,
   useMaterialUIController,
@@ -133,4 +119,5 @@ export {
   setDirection,
   setLayout,
   setDarkMode,
+  setCurrentUser,
 };
