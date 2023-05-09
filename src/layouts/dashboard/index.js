@@ -19,7 +19,7 @@ import Grid from "@mui/material/Grid";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material Dashboard 2 React example components
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
@@ -42,21 +42,22 @@ import WebSocketBinance from "api/ws_binance";
 
 function Dashboard() {
   const [costamount, setCostamount] = useState("0");
-  setCostamount(""); 
-  // useEffect(() => {
-  //   console.log("useEffect work");
-  //   wsZeroth
-  //     .channel("custom-all-channel")
-  //     .on(
-  //       "postgres_changes",
-  //       { event: "*", schema: "public", table: "transactions" },
-  //       (payload) => {
-  //         console.log("Change received!", payload.new.cost_amounty);
-  //         setCostamount(String(payload.new.cost_amount));
-  //       }
-  //     )
-  //     .subscribe();
-  // }, []);
+
+  useEffect(() => {
+    setCostamount("0");
+    //   console.log("useEffect work");
+    //   wsZeroth
+    //     .channel("custom-all-channel")
+    //     .on(
+    //       "postgres_changes",
+    //       { event: "*", schema: "public", table: "transactions" },
+    //       (payload) => {
+    //         console.log("Change received!", payload.new.cost_amounty);
+    //         setCostamount(String(payload.new.cost_amount));
+    //       }
+    //     )
+    //     .subscribe();
+  }, []);
 
   const { sales, tasks } = reportsLineChartData;
 
