@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
+import { formatCurrency } from "function/price_format";
 
 export default function WebSocketBinance() {
   const [lastprice, setLastprice] = useState("0");
@@ -15,10 +16,7 @@ export default function WebSocketBinance() {
     websocket.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log("Received data:", data.p);
-      const price = parseFloat(data.p)
-        .toFixed(2)
-        .toLocaleString("en-US", { style: "currency", currency: "USD" });
-      setLastprice(price);
+      setLastprice(data.p);
     };
 
     websocket.onerror = (error) => {
@@ -40,7 +38,7 @@ export default function WebSocketBinance() {
       color="primary"
       icon="primary"
       title="Bitcoin"
-      count={lastprice}
+      count={formatCurrency(lastprice)}
       percentage={{
         color: "success",
         amount: "",
