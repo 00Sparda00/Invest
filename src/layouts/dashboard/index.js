@@ -38,6 +38,7 @@ import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 // Supabase
 import { wsZeroth } from "api/api_supabase";
+import WebSocketBinance from "api/ws_binance";
 
 function Dashboard() {
   const [costamount, setCostamount] = useState("0");
@@ -109,17 +110,7 @@ function Dashboard() {
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <MDBox mb={1.5}>
-              <ComplexStatisticsCard
-                color="primary"
-                icon="person_add"
-                title="Followers"
-                count="+91"
-                percentage={{
-                  color: "success",
-                  amount: "",
-                  label: "Just updated",
-                }}
-              />
+              <WebSocketBinance />
             </MDBox>
           </Grid>
         </Grid>
