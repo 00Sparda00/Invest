@@ -1,18 +1,24 @@
-import WebSocket from "ws";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 
 export default function WebSocketBinance() {
+  const [lastprice, setLastprice] = useState("0");
+
   useEffect(() => {
-    const websocket = new WebSocket("wss://ws-api.binance.com:443/ws-api/v3");
+    const websocket = new WebSocket("wss://stream.binance.com:9443/ws/btcusdt@trade");
 
     websocket.onopen = () => {
-      console.log("WebSocket connection opene");
-      websocket.send("Hello server!");
+      console.log("WebSocket connection openen");
+      //   websocket.send("Hello server!");
     };
 
     websocket.onmessage = (event) => {
-      console.log("Received data:", event.data);
+      const data = JSON.parse(event.data);
+      console.log("Received data:", data.p);
+      const price = parseFloat(data.p)
+        .toFixed(2)
+        .toLocaleString("en-US", { style: "currency", currency: "USD" });
+      setLastprice(price);
     };
 
     websocket.onerror = (error) => {
@@ -32,9 +38,9 @@ export default function WebSocketBinance() {
   return (
     <ComplexStatisticsCard
       color="primary"
-      icon="person_add"
-      title="Followers"
-      count="+91"
+      icon="primary"
+      title="Bitcoin"
+      count={lastprice}
       percentage={{
         color: "success",
         amount: "",
