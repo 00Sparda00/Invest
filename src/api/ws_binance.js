@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-import { formatCurrency } from "function/price_format";
+import formatCurrency from "function/price_format";
 
 export default function WebSocketBinance() {
   const [lastprice, setLastprice] = useState("0");
