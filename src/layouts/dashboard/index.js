@@ -37,25 +37,26 @@ import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import Projects from "layouts/dashboard/components/Projects";
 import OrdersOverview from "layouts/dashboard/components/OrdersOverview";
 // Supabase
-import { wsZeroth } from "api/api_supabase";
+// import { wsZeroth } from "api/api_supabase";
 import WebSocketBinance from "api/ws_binance";
 
 function Dashboard() {
   const [costamount, setCostamount] = useState("0");
-  useEffect(() => {
-    console.log("useEffect work");
-    wsZeroth
-      .channel("custom-all-channel")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "transactions" },
-        (payload) => {
-          console.log("Change received!", payload.new.cost_amounty);
-          setCostamount(String(payload.new.cost_amount));
-        }
-      )
-      .subscribe();
-  }, []);
+  setCostamount(""); 
+  // useEffect(() => {
+  //   console.log("useEffect work");
+  //   wsZeroth
+  //     .channel("custom-all-channel")
+  //     .on(
+  //       "postgres_changes",
+  //       { event: "*", schema: "public", table: "transactions" },
+  //       (payload) => {
+  //         console.log("Change received!", payload.new.cost_amounty);
+  //         setCostamount(String(payload.new.cost_amount));
+  //       }
+  //     )
+  //     .subscribe();
+  // }, []);
 
   const { sales, tasks } = reportsLineChartData;
 
