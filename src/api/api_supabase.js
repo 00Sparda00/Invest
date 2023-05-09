@@ -7,7 +7,6 @@ const authenKey =
 const zerothUrl = "http://zeroth.trueddns.com:30264";
 const zerothKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICAgInJvbGUiOiAiYW5vbiIsCiAgICAiaXNzIjogInN1cGFiYXNlIiwKICAgICJpYXQiOiAxNjc4MDM1NjAwLAogICAgImV4cCI6IDE4MzU4ODg0MDAKfQ.q2awueyU-6gYo6kMXx0VNXFDf-48uZ95SZ_YyWO_h5c";
-  
 const supabaseAuthen = createClient(authenUrl, authenKey);
 const wsZeroth = createClient(zerothUrl, zerothKey);
 const serviceZeroth = createClient(zerothUrl, zerothKey);
